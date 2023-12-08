@@ -31,15 +31,14 @@ body {
 
 /* Left div styles */
 .left-div {
-    width:50%; /* Adjust the width as needed */
+    width: 60%; /* Adjust the width as needed */
     border: 2px solid #000; /* Black border */
-    padding:0px ;
     box-sizing: border-box;
 }
 
 /* Right div styles */
 .right-div {
-    width: 49%; /* Adjust the width as needed */
+    width: 40%; /* Adjust the width as needed */
     border: 2px solid #000; /* Black border */
     padding: 20px;
     box-sizing: border-box;
