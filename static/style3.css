@@ -8,6 +8,8 @@ body, h1, h2, h3, p, img, ul, li, form, label, input, button {
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
+    margin: 0; /* Remove default body margin */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 /* Navigation Bar styles */
@@ -31,15 +33,26 @@ body {
 
 /* Left div styles */
 .left-div {
-    width: 60%; /* Adjust the width as needed */
-    border: 2px solid #000; /* Black border */
+    max-width: 60vw; /* Set maximum width to 60% of viewport width */
     box-sizing: border-box;
+    position: relative; /* Ensure position relative for absolute positioning */
+}
+
+/* Adjust the image to fill the left-div */
+#video_feed {
+    width: 100%;
+    height: 100vh; /* Set height to 100% of viewport height */
+    object-fit: cover; /* Ensure the image covers the entire container */
 }
 
 /* Right div styles */
 .right-div {
     width: 40%; /* Adjust the width as needed */
-    border: 2px solid #000; /* Black border */
     padding: 20px;
     box-sizing: border-box;
+}
+
+/* Remove borders from both left-div and right-div */
+.left-div, .right-div {
+    border: none;
 }
