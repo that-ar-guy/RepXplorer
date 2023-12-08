@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/style3.css">
+    <title>RepXplorer - Web Tracking App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <h1>RepXplorer</h1>
+    </div>
+    <div class="container">
+        <div class="left-div">
+            <img id="video_feed" src="{{url_for('video_feed')}}" alt="Image Not Found">
+            
+        </div>
+        <div class="right-div">
+            <br>
+            {% if curls %}
+                <p>CURLS ENTERED: {{ curls }}</p>
+                <p id="curl_count">Number of Curls Tracked: 0</p>
+            {% endif %}
+            <br>
+        </div>
+    </div>
+
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+    
+        socket.on('update', function(data) {
+            updateCurlCount(data.rep_count);
+        });
+    
+        function updateCurlCount(repCount) {
+            var curlCountElement = document.getElementById('curl_count');
+            curlCountElement.innerText = 'Number of Curls Tracked: ' + repCount;
+        }
+    
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'q' || event.key === 'Q') {
+                // Stop the tracking by setting the source to an empty string
+                document.getElementById('video_feed').src = '';
+                window.location.href = "/";
+            }
+        });
+    </script>
+
+<!-- ... (your existing HTML code) ... -->
+
+</body>
+</html>

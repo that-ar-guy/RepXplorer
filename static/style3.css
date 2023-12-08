@@ -1,0 +1,46 @@
+/* Reset some default browser styles */
+body, h1, h2, h3, p, img, ul, li, form, label, input, button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Navigation Bar styles */
+.navbar {
+    background-color: #333;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+}
+
+.navbar h1 {
+    margin: 0;
+}
+
+/* Container styles */
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px;
+}
+
+/* Left div styles */
+.left-div {
+    width:50%; /* Adjust the width as needed */
+    border: 2px solid #000; /* Black border */
+    padding:0px ;
+    box-sizing: border-box;
+}
+
+/* Right div styles */
+.right-div {
+    width: 49%; /* Adjust the width as needed */
+    border: 2px solid #000; /* Black border */
+    padding: 20px;
+    box-sizing: border-box;
+}
