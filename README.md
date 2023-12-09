@@ -1,6 +1,6 @@
-##RepXplorer - Bicep Curl Tracking Web App
-
-#Description
+## RepXplorer - Bicep Curl Tracking Web App
+<br>
+# Description
 RepXplorer is a web-based application designed to track and count bicep curls using a camera. Users can input the number of curls they plan to perform, and the application will provide real-time feedback on the number of curls detected.
 
 #Features
