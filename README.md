@@ -28,7 +28,7 @@ RepXplorer is a web-based application designed to track and count bicep curls us
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/yourusername/RepXplorer.git
+   git clone https://github.com/that-ar-guy/bicep-curl-tracker.git
 
 2. **Install Dependencies:**
    ```bash
@@ -54,8 +54,8 @@ Open your web browser and navigate to http://localhost:5000.
 8.**Exiting:**
 The application automatically stops tracking once the detected curl count matches the entered curl count.
 
-9.**Dependencies:**
-Flask
-OpenCV
-NumPy
-MediaPipe
+9.**Dependencies:**<br>
+Flask<br>
+OpenCV<br>
+NumPy<br>
+MediaPipe<br>
