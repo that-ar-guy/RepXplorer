@@ -1,9 +1,9 @@
 ## RepXplorer - Bicep Curl Tracking Web App
 <br>
 # Description
+<br>
 RepXplorer is a web-based application designed to track and count bicep curls using a camera. Users can input the number of curls they plan to perform, and the application will provide real-time feedback on the number of curls detected.
-
-#Features
+# Features<br>
 Real-time Pose Detection: Utilizes the MediaPipe Pose library for accurate real-time pose detection.
 
 Web Interface: Provides a user-friendly web interface where users can input the number of curls.
