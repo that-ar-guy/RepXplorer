@@ -28,7 +28,7 @@ def gen(camera, total_curls):
 @app.route('/base')
 def base():
     curls = request.args.get('curls', '')
-    return render_template('index3.html', curls=curls)
+    return render_template('index3.html', curls=curls, remaining_curls='remaining_curls')
 
 @app.route('/video_feed/<int:total_curls>')
 def video_feed(total_curls):
