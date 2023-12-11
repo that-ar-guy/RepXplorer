@@ -18,7 +18,7 @@ body {
 
 /* Navigation Bar styles */
 .navbar {
-    background-color: #333;
+    background-color: black;
     color: #fff;
     padding: 15px;
     text-align: center;
@@ -78,4 +78,7 @@ button {
 
 button:hover {
     background-color: #555;
+}
+.h1t {
+    text-align: left;
 }

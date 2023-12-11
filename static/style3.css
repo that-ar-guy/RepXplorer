@@ -14,7 +14,7 @@ body {
 
 /* Navigation Bar styles */
 .navbar {
-    background-color: #333;
+    background-color: black;
     color: #fff;
     padding: 15px;
     text-align: center;
@@ -47,7 +47,7 @@ body {
 
 /* Right div styles */
 .right-div {
-    width: 40%; /* Adjust the width as needed */
+    width: 41%; /* Adjust the width as needed */
     padding: 20px;
     box-sizing: border-box;
     background-color: #fff; /* Background color for the right div */
@@ -71,4 +71,7 @@ body {
 /* Remove borders from both left-div and right-div */
 .left-div, .right-div {
     border: none;
+}
+.h1t {
+    text-align: left;
 }
