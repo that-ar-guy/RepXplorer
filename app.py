@@ -13,14 +13,13 @@ def hello():
         return redirect(url_for('base', curls=curls))
     return render_template('index.html')
 
-def gen(camera):
+def gen(camera, total_curls):
     while True:
-        jpeg, rep_count = camera.get_frame()
+        jpeg, remaining_curls = camera.get_frame(total_curls)
         if cv2.waitKey(1) & 0xFF == 27:
             break
 
-        socketio.emit('update', {'rep_count': rep_count})
-
+        socketio.emit('update', {'remaining_curls': remaining_curls})
 
         yield (b'--frame\r\n'
                b'Content-type: image/jpeg\r\n\r\n' + jpeg
@@ -29,11 +28,11 @@ def gen(camera):
 @app.route('/base')
 def base():
     curls = request.args.get('curls', '')
-    return render_template('index3.html', curls=curls)
+    return render_template('index3.html', curls=curls, remaining_curls='remaining_curls')
 
-@app.route('/video_feed')
-def video_feed():
-    return Response(gen(VideoCamera()), mimetype='multipart/x-mixed-replace;boundary=frame')
+@app.route('/video_feed/<int:total_curls>')
+def video_feed(total_curls):
+    return Response(gen(VideoCamera(), total_curls), mimetype='multipart/x-mixed-replace;boundary=frame')
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)

@@ -9,7 +9,7 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
     margin: 0; /* Remove default body margin */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow: hidden; /* Prevent horizontal scrolling */
 }
 
 /* Navigation Bar styles */
@@ -50,6 +50,22 @@ body {
     width: 40%; /* Adjust the width as needed */
     padding: 20px;
     box-sizing: border-box;
+    background-color: #fff; /* Background color for the right div */
+    border: 1px solid #ddd; /* Border for the right div */
+    border-radius: 8px; /* Border radius for a slightly rounded appearance */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift */
+}
+
+/* Additional styles for a dynamic and personalized right div */
+.right-div p.info {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.right-div p.tip {
+    color: #777;
+    font-style: italic;
 }
 
 /* Remove borders from both left-div and right-div */

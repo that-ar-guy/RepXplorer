@@ -18,3 +18,21 @@ document.addEventListener('keydown', function (event) {
         window.location.href = "/";
     }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+    socket.on('update', function (data) {
+        // Update the content of the paragraph with the new remaining curls value
+        document.getElementById('remaining_curls').innerText = 'Remaining Curls: ' + data.remaining_curls;
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+    socket.on('update', function (data) {
+        // Update the content of the paragraph with the new remaining curls value
+        document.getElementById('remaining_curls').innerText = 'Remaining Curls: ' + data.remaining_curls;
+    });
+});

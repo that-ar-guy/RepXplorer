@@ -13,6 +13,7 @@ body {
     align-items: center;
     justify-content: flex-start;
     height: 100vh;
+    overflow: hidden;
 }
 
 /* Navigation Bar styles */
