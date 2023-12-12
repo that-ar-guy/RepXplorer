@@ -24,6 +24,14 @@ def bicep_curls_page():
     return render_template('bicep_curls.html')  # Replace 10 with the default number of curls
   # Replace 10 with the default number of curls
 
+@app.route('/squats', methods=['GET', 'POST'])
+def squats_page():
+    if request.method == 'POST':
+        total_squats = int(request.form['total_squats'])
+        return redirect(url_for('video_feed'))
+    return render_template('squats.html')
+
+
 def gen(camera):
     while True:
         jpeg = camera.get_frame()
