@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bicep Curls</title>
+    <link rel="stylesheet" href="static/style3.css">
+</head>
+<body>
+    <div class="navbar">
+        <h1>RepXplorer</h1>
+    </div>
+    <div class="container">
+        <div class="left-div">
+            <form id="exerciseForm" action="{{ url_for('bicep_curls_page') }}" method="post">
+                <label for="total_curls">Enter the number of bicep curls:</label>
+                <input type="number" name="total_curls" id="total_curls" required>
+                <button type="button" onclick="startExercise()">Start Exercise</button>
+            </form>
+        </div>
+        <div class="right-div">
+            <img id="video_feed" src="{{ url_for('video_feed') }}" alt="Image Not Found">
+        </div>
+    </div>
+
+    <script>
+        function startExercise() {
+            document.getElementById("exerciseForm").submit();
+        }
+    </script>
+</body>
+</html>

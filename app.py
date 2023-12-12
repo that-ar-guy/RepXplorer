@@ -1,38 +1,44 @@
-from flask import Flask, render_template, Response, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, Response
 from flask_socketio import SocketIO
-from camera import VideoCamera
 import cv2
+from camera import VideoCamera  # Assuming the camera module is in a file named camera.py
 
 app = Flask(__name__)
 socketio = SocketIO(app)
 
 @app.route('/', methods=['GET', 'POST'])
-def hello():
+def landing():
     if request.method == 'POST':
-        curls = request.form['curlCount']
-        return redirect(url_for('base', curls=curls))
-    return render_template('index.html')
+        exercise = request.form['exercise']
+        if exercise == 'bicep_curls':
+            return redirect(url_for('bicep_curls_page'))
+        elif exercise == 'squats':
+            return redirect(url_for('squats_page'))
+    return render_template('landing.html')
 
-def gen(camera, total_curls):
+@app.route('/bicep_curls', methods=['GET', 'POST'])
+def bicep_curls_page():
+    if request.method == 'POST':
+        total_curls = int(request.form['total_curls'])
+        return redirect(url_for('video_feed'))
+    return render_template('bicep_curls.html')  # Replace 10 with the default number of curls
+  # Replace 10 with the default number of curls
+
+def gen(camera):
     while True:
-        jpeg, remaining_curls = camera.get_frame(total_curls)
+        jpeg = camera.get_frame()
         if cv2.waitKey(1) & 0xFF == 27:
             break
 
-        socketio.emit('update', {'remaining_curls': remaining_curls})
+        socketio.emit('update')
 
         yield (b'--frame\r\n'
                b'Content-type: image/jpeg\r\n\r\n' + jpeg
                + b'\r\n\r\n')
 
-@app.route('/base')
-def base():
-    curls = request.args.get('curls', '')
-    return render_template('index3.html', curls=curls, remaining_curls='remaining_curls')
-
-@app.route('/video_feed/<int:total_curls>')
-def video_feed(total_curls):
-    return Response(gen(VideoCamera(), total_curls), mimetype='multipart/x-mixed-replace;boundary=frame')
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen(VideoCamera()), mimetype='multipart/x-mixed-replace;boundary=frame')
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
