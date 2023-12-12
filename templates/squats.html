@@ -27,6 +27,15 @@
         function startExercise() {
             document.getElementById("exerciseForm").submit();
         }
+
+        // Add event listener for key press
+        document.addEventListener("keydown", function(event) {
+            // Check if the pressed key is 'q'
+            if (event.key === "q") {
+                // Redirect to the landing page
+                window.location.href = "{{ url_for('landing') }}";
+            }
+        });
     </script>
 </body>
 </html>
