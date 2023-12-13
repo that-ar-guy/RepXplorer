@@ -2,40 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bicep Curls</title>
-    <link rel="stylesheet" href="static/style3.css">
-</head>
-<body>
-    <div class="navbar">
-        <h1>RepXplorer</h1>
-    </div>
-    <div class="container">
-        <div class="left-div">
-            <form id="exerciseForm" action="{{ url_for('bicep_curls_page') }}" method="post">
-                <label for="total_curls">Enter the number of bicep curls:</label>
-                <input type="number" name="total_curls" id="total_curls" required>
-                <button type="button" onclick="startExercise()">Start Exercise</button>
-            </form>
-        </div>
-        <div class="right-div">
-            <img id="video_feed" src="{{ url_for('video_feed') }}" alt="Image Not Found">
-        </div>
-    </div>
-
-    <script>
-        function startExercise() {
-            document.getElementById("exerciseForm").submit();
+    <title>Bicep Curls Page</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
         }
 
-        // Add event listener for key press
-        document.addEventListener("keydown", function(event) {
-            // Check if the pressed key is 'q'
-            if (event.key === "q") {
-                // Redirect to the landing page
-                window.location.href = "{{ url_for('landing') }}";
-            }
-        });
-    </script>
+        .page-container {
+            display: flex;
+            height: 100%;
+        }
+
+        .left {
+            border: 1px solid black;
+            width: 50%;
+            height: 100%;
+            background-color: grey;
+        }
+
+        .right {
+            border: 1px solid black;
+            width: 50%;
+            height: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="left" >
+            <img id="video_feed" src="{{url_for('video_feed', count=count)}}" alt="Image Not Found">
+        </div>
+        <br>
+        <br>
+        <div class="right">
+            <p>Number of Bicep Curls: {{ count }}</p>
+        </div>
+    </div>
 </body>
 </html>
