@@ -38,28 +38,29 @@
         <div class="left" >
             <img id="video_feed" src="{{url_for('video_feed', count=count)}}" alt="Image Not Found">
         </div>
-        <br>
-        <br>
         <div class="right">
-            <p>Number of Bicep Curls: {{ count }}</p>
-            <!-- Add this div inside the .right div to display remaining curls -->
-<div id="remainingCurls">Remaining Curls: {{ count }}</div>
-
-
+            <p>CURLS REMAINGNG : <span id="remainingCurls">{{ count }}</span></p>
         </div>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <script>
-        // Connect to the SocketIO server
         var socket = io.connect('http://' + document.domain + ':' + location.port);
 
-        // Listen for 'update' events from the server
         socket.on('update', function(data) {
-            // Update the remaining curls in the right div
-            document.getElementById('remainingCurls').innerText = data.remaining_curls;
+            var remainingCurlsElement = document.getElementById('remainingCurls');
+            remainingCurlsElement.innerText = data.remaining_curls;
+
+            // Check if remaining curls are 0
+            if (data.remaining_curls === 0) {
+                // Display a pop-up message
+                alert('Well done! Exercise completed.');
+
+                // Redirect to the landing page
+                window.location.href = '/';
+            }
         });
 
-        // Listen for the 'keydown' event to handle 'q' key press
         document.addEventListener('keydown', function(event) {
             if (event.key === 'q') {
                 var isExerciseInterrupted = confirm("Exercise interrupted. Going to homepage.");

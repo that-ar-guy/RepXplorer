@@ -1,0 +1,22 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.page-container {
+    display: flex;
+}
+
+
+.left-container {
+    width: 50%;
+    border-style: solid;
+    border-width: 1px;
+    background-color: grey;
+}
+
+.right-container {
+    width: 50%;
+    padding: 10px;
+    box-sizing: border-box;
+}
