@@ -2,21 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exercise Choice</title>
     <link rel="stylesheet" href="static/landingcss.css">
+    <title>Landing Page</title>
 </head>
 <body>
-    <div class="navbar">
-        <h1 class="h1">RepXplorer</h1>
+    <div class="hover-trigger" id="bicep-curl-trigger">
+        <p>Bicep Curl</p>
+        <div class="form-container" id="bicep-curl-form">
+            <form action="{{ url_for('submit') }}" method="post">
+                <label for="bicep_curls">Number of Bicep Curls:</label>
+                <input type="text" name="bicep_curls" required>
+                <button type="submit" name="form_type" value="bicep_curl">Submit Bicep Curls</button>
+            </form>
+        </div>
     </div>
-    <div class="container">
-        <form action="/" method="post">
-            <div class="btn-container">
-                <button type="submit" class="exercise-btn" name="exercise" value="bicep_curls">Bicep Curls</button>
-                <button type="submit" class="exercise-btn" name="exercise" value="squats">Squats</button>
-            </div>
-        </form>
+
+    <div class="hover-trigger" id="squats-trigger">
+        <p>Squats</p>
+        <div class="form-container" id="squats-form">
+            <form action="{{ url_for('submit') }}" method="post">
+                <label for="squats">Number of Squats:</label>
+                <input type="text" name="squats" required>
+                <button type="submit" name="form_type" value="squats">Submit Squats</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
