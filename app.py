@@ -2,6 +2,7 @@ from flask import Flask, render_template, Response, request, redirect, url_for
 from flask_socketio import SocketIO
 from camera import VideoCamera
 import cv2
+from camera_squats import VideoCamera_S
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -44,9 +45,25 @@ def gen(camera, count):
                b'Content-type: image/jpeg\r\n\r\n' + jpeg
                + b'\r\n\r\n')
 
+
 @app.route('/video_feed/<int:count>')
 def video_feed(count):
     return Response(gen(VideoCamera(), count), mimetype='multipart/x-mixed-replace;boundary=frame')
 
+@app.route('/video_feed_squats/<int:count>')
+def video_feed_squats(count):
+    return Response(gen_s(VideoCamera_S(),count), mimetype='multipart/x-mixed-replace;boundary=frame')
+
+def gen_s(camera_squats, count):
+    while True:
+        jpeg, remaining_squats = camera_squats.get_frame_squats(count)
+        if cv2.waitKey(1) & 0xFF == 27:
+            break
+
+        socketio.emit('update', {'remainremaining_squats':remaining_squats})
+
+        yield (b'--frame\r\n'
+               b'Content-type: image/jpeg\r\n\r\n' + jpeg
+               + b'\r\n\r\n')
 if __name__ == '__main__':
     app.run(debug=True)
