@@ -1,45 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bicep Curls Page</title>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-        }
-
-        .page-container {
-            display: flex;
-            height: 100%;
-        }
-
-        .left {
-            border: 1px solid black;
-            width: 50%;
-            height: 100%;
-            background-color: grey;
-        }
-
-        .right {
-            border: 1px solid black;
-            width: 50%;
-            height: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-    </style>
+    <!-- Add your head content here -->
 </head>
 <body>
     <div class="page-container">
-        <div class="left" >
+        <div class="left">
             <img id="video_feed_squats" src="{{url_for('video_feed_squats', count=count)}}" alt="Image Not Found">
         </div>
         <div class="right">
-            <p>CURLS REMAINGNG : <span id="remainingSquats">{{ count }}</span></p>
+            <p>SQUATS COMPLETED: <span id="completedSquats">0</span></p>
         </div>
     </div>
 
@@ -48,13 +18,13 @@
         var socket = io.connect('http://' + document.domain + ':' + location.port);
 
         socket.on('update', function(data) {
-            var remainingCurlsElement = document.getElementById('remainingSquats');
-            remainingSquatsElement.innerText = data.remaining_squats;
+            var completedSquatsElement = document.getElementById('completedSquats');
+            completedSquatsElement.innerText = data.completed_squats;
 
-            // Check if remaining curls are 0
-            if (data.remaining_squats === 0) {
+            // Check if remaining squats are 0
+            if (data.completed_squats >= {{ count }}) {
                 // Display a pop-up message
-                alert('Well done! Exercise completed.');
+                alert('Well done! Squats completed.');
 
                 // Redirect to the landing page
                 window.location.href = '/';
@@ -64,7 +34,7 @@
         document.addEventListener('keydown', function(event) {
             if (event.key === 'q') {
                 var isExerciseInterrupted = confirm("Exercise interrupted. Going to homepage.");
-    
+
                 if (isExerciseInterrupted) {
                     window.location.href = '/';
                 }
