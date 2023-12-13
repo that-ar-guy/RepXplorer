@@ -28,8 +28,12 @@ class VideoCamera(object):
         angle = np.degrees(theta)
         return angle
 
+    def get_remaining_curls(self, count):
+        remaining_curls = max(0, count - self.rep_count)
+        return remaining_curls
 
-    def get_frame(self):
+    def get_frame(self, count):
+        remaining_curls = self.get_remaining_curls(count)
         ret, frame = self.video.read()
 
         # Convert the frame to RGB for Mediapipe
@@ -71,7 +75,7 @@ class VideoCamera(object):
                     self.rep_count += 1
 
             # Draw rep count on the frame
-            cv2.putText(frame, f'Rep Count: {self.rep_count}', (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+            cv2.putText(frame, f'Remaining Curls: {remaining_curls}', (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
             mp.solutions.drawing_utils.draw_landmarks(
                 frame, results.pose_landmarks, self.mp_pose.POSE_CONNECTIONS)
@@ -79,4 +83,5 @@ class VideoCamera(object):
         # Encode the frame to JPEG for streaming
         ret, jpeg = cv2.imencode('.jpg', frame)
 
-        return jpeg.tobytes()
+        
+        return jpeg.tobytes(), remaining_curls

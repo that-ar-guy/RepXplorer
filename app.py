@@ -32,7 +32,7 @@ def bicep_curl(count):
 def squats(count):
     return render_template('squats.html', count=count)
 
-def gen(camera, total_curls):
+def gen(camera, count):
     while True:
         jpeg, remaining_curls = camera.get_frame(count)
         if cv2.waitKey(1) & 0xFF == 27:
