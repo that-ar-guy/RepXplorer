@@ -42,15 +42,31 @@
         <br>
         <div class="right">
             <p>Number of Bicep Curls: {{ count }}</p>
+            <!-- Add this div inside the .right div to display remaining curls -->
+<div id="remainingCurls">Remaining Curls: {{ count }}</div>
+
 
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
     <script>
+        // Connect to the SocketIO server
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        // Listen for 'update' events from the server
+        socket.on('update', function(data) {
+            // Update the remaining curls in the right div
+            document.getElementById('remainingCurls').innerText = data.remaining_curls;
+        });
+
+        // Listen for the 'keydown' event to handle 'q' key press
         document.addEventListener('keydown', function(event) {
-            // Check if the pressed key is 'q'
             if (event.key === 'q') {
-                // Redirect to landing.html
-                window.location.href = '/';
+                var isExerciseInterrupted = confirm("Exercise interrupted. Going to homepage.");
+    
+                if (isExerciseInterrupted) {
+                    window.location.href = '/';
+                }
             }
         });
     </script>
