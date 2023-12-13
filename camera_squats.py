@@ -8,15 +8,16 @@ class VideoCamera_S(object):
         self.mp_pose = mp.solutions.pose
         self.pose = self.mp_pose.Pose()
 
-        self.left_knee_up = False
+        self.knee_bend_threshold = 100
         self.squat_count = 0
-        self.prev_squat_side = None
+        self.is_squatting = False
 
     def __del__(self):
         self.video.release()
 
-    def get_completed_squats(self, count):
-        return min(count, self.squat_count)
+    def get_remaining_squats(self, count):
+        remaining_squats = max(0, count - self.squat_count)
+        return remaining_squats
 
     def calculate_angle(self, a, b, c):
         a = np.array([a.x, a.y])
@@ -31,7 +32,7 @@ class VideoCamera_S(object):
         return angle
 
     def get_frame_squats(self, count):
-        completed_squats = self.get_completed_squats(count)
+        remaining_squats = self.get_remaining_squats(count)
         ret, frame = self.video.read()
 
         # Convert the frame to RGB for Mediapipe
@@ -51,23 +52,19 @@ class VideoCamera_S(object):
             left_angle = self.calculate_angle(left_hip, left_knee, left_ankle)
 
             # Check for squat reps
-            if left_angle < 100 and not self.left_knee_up:
-                self.left_knee_up = True
-                self.prev_squat_side = 'left'
-            elif left_angle > 160 and self.left_knee_up:
-                self.left_knee_up = False
-
-                # Count a squat only if the current knee lift is of the opposite side
-                if self.prev_squat_side == 'left':
-                    self.squat_count += 1
+            if left_angle < self.knee_bend_threshold and not self.is_squatting:
+                self.is_squatting = True
+            elif left_angle > (180 - self.knee_bend_threshold) and self.is_squatting:
+                self.is_squatting = False
+                self.squat_count += 1
 
             # Draw squat count on the frame
-            cv2.putText(frame, f'Completed Squats: {completed_squats}', (50, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+            cv2.putText(frame, f'Remaining Squats: {remaining_squats}', (50, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
             mp.solutions.drawing_utils.draw_landmarks(
-            frame, results.pose_landmarks, self.mp_pose.POSE_CONNECTIONS)
+                frame, results.pose_landmarks, self.mp_pose.POSE_CONNECTIONS)
 
         # Encode the frame to JPEG for streaming
         ret, jpeg = cv2.imencode('.jpg', frame)
 
-        return jpeg.tobytes(), completed_squats
+        return jpeg.tobytes(), remaining_squats

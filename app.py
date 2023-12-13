@@ -56,11 +56,11 @@ def video_feed_squats(count):
 
 def gen_s(camera_squats, count):
     while True:
-        jpeg, completed_squats = camera_squats.get_frame_squats(count)
+        jpeg, remaining_squats = camera_squats.get_frame_squats(count)
         if cv2.waitKey(1) & 0xFF == 27:
             break
 
-        socketio.emit('update', {'completed_squats': completed_squats})
+        socketio.emit('update', {'remaining_squats': remaining_squats})
 
         yield (b'--frame\r\n'
                b'Content-type: image/jpeg\r\n\r\n' + jpeg

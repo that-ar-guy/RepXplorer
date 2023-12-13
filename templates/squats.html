@@ -1,15 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Add your head content here -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squats Counter</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .page-container {
+            display: flex;
+            height: 100%;
+        }
+
+        .left {
+            border: 1px solid black;
+            width: 50%;
+            height: 100%;
+            background-color: grey;
+        }
+
+        .right {
+            border: 1px solid black;
+            width: 50%;
+            height: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 <body>
     <div class="page-container">
         <div class="left">
-            <img id="video_feed_squats" src="{{url_for('video_feed_squats', count=count)}}" alt="Image Not Found">
+            <img id="video_feed_squats" src="{{ url_for('video_feed_squats', count=count) }}" alt="Image Not Found">
         </div>
         <div class="right">
-            <p>SQUATS COMPLETED: <span id="completedSquats">0</span></p>
+            <p>REMAINING SQUATS: <span id="remainingSquats">{{ count }}</span></p>
         </div>
     </div>
 
@@ -18,11 +47,13 @@
         var socket = io.connect('http://' + document.domain + ':' + location.port);
 
         socket.on('update', function(data) {
-            var completedSquatsElement = document.getElementById('completedSquats');
-            completedSquatsElement.innerText = data.completed_squats;
+            var remainingSquatsElement = document.getElementById('remainingSquats');
+
+            // Update remaining squats dynamically
+            remainingSquatsElement.innerText = data.remaining_squats;
 
             // Check if remaining squats are 0
-            if (data.completed_squats >= {{ count }}) {
+            if (data.remaining_squats === 0) {
                 // Display a pop-up message
                 alert('Well done! Squats completed.');
 
