@@ -42,7 +42,17 @@
         <br>
         <div class="right">
             <p>Number of Bicep Curls: {{ count }}</p>
+
         </div>
     </div>
+    <script>
+        document.addEventListener('keydown', function(event) {
+            // Check if the pressed key is 'q'
+            if (event.key === 'q') {
+                // Redirect to landing.html
+                window.location.href = '/';
+            }
+        });
+    </script>
 </body>
 </html>
