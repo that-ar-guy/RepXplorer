@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add these styles to your CSS or SCSS file */
+.banner {
+  width: 100%;
+  height: 88vh; /* Adjust the height as needed */
+  background: linear-gradient(to right, black, rgba(255, 1, 1, 0.903)); /* Adjust the colors as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  color: white;
+}
+
+.left-side {
+  width: 60%; /* Adjust the width as needed */
+}
+
+.right-side {
+  width: 40%; /* Adjust the width as needed */
+}
