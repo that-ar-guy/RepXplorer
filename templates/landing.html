@@ -8,6 +8,24 @@
     <title>Landing Page</title>
 </head>
 <body>
+    <div class="left">
+        <div class="headi">
+            RepXplorer
+        </div>
+        <div class="carousel">
+            <div class="carousal-cont">
+                <img src="static/b1.jpeg" alt="" class="slider">
+                <img src="static/b2.jpeg" alt="" class="slider">
+                <img src="static/b3.jpeg" alt="" class="slider">
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="letsstarted">
+            Get <br>
+            Started 
+        </div>
+ <div class="conta">
     <div class="hover-trigger" id="bicep-curl-trigger">
         <p>Bicep Curl</p>
         <div class="form-container" id="bicep-curl-form">
@@ -29,5 +47,35 @@
             </form>
         </div>
     </div>
+ </div>
+
+    </div>
+    <script>
+        // JavaScript for image carousel
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.slider');
+        
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.style.display = i === index ? 'block' : 'none';
+            });
+        }
+        
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slides.length;
+            showSlide(currentIndex);
+        }
+        
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            showSlide(currentIndex);
+        }
+        
+        // Initial display
+        showSlide(currentIndex);
+        
+        // Auto-advance every 3 seconds
+        setInterval(nextSlide, 3000);
+    </script>
 </body>
 </html>

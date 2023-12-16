@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bicep Curlss Page</title>
+    <title>Bicep Curls Page</title>
     <style>
         html, body {
             margin: 0;
             padding: 0;
             height: 100%;
+            background: linear-gradient(to right, #c51242, #ff0044);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
         }
 
         .page-container {
@@ -21,25 +24,63 @@
             border: 1px solid black;
             width: 50%;
             height: 100%;
-            background-color: grey;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .right {
             border: 1px solid black;
             width: 50%;
             height: 100%;
-            padding: 10px;
+            padding: 20px; /* Increased padding for a more spacious look */
             box-sizing: border-box;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.1); /* Added a subtle background color */
+            border-radius: 15px; /* Added rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Added a subtle box shadow */
+        }
+
+        .right p {
+            font-size: 24px; /* Increased font size for better readability */
+            margin-bottom: 20px; /* Increased margin for better spacing */
+        }
+
+        #remainingCurls {
+            font-size: 30px; /* Increased font size for emphasis */
+            font-weight: bold; /* Added bold font weight for emphasis */
+        }
+
+        /* Improved button style */
+        .action-button {
+            background-color: #3498db;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-button:hover {
+            background-color: #2962a9;
         }
     </style>
 </head>
 <body>
     <div class="page-container">
-        <div class="left" >
-            <img id="video_feed" src="{{url_for('video_feed', count=count)}}" alt="Image Not Found">
+        <div class="left">
+            <img id="video_feed" src="{{url_for('video_feed', count=count)}}" alt="Image Not Found" class="video_feed">
         </div>
         <div class="right">
-            <p>CURLS REMAINGNG : <span id="remainingCurls">{{ count }}</span></p>
+            <p>CURLS REMAINING: <span id="remainingCurls">{{ count }}</span></p>
+            <!-- Improved button for better interaction -->
+            <button class="action-button" id="interruptButton">Interrupt Exercise</button>
         </div>
     </div>
 
@@ -61,13 +102,11 @@
             }
         });
 
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'q') {
-                var isExerciseInterrupted = confirm("Exercise interrupted. Going to homepage.");
-    
-                if (isExerciseInterrupted) {
-                    window.location.href = '/';
-                }
+        document.getElementById('interruptButton').addEventListener('click', function() {
+            var isExerciseInterrupted = confirm("Exercise interrupted. Going to homepage.");
+
+            if (isExerciseInterrupted) {
+                window.location.href = '/';
             }
         });
     </script>
