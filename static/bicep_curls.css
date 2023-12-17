@@ -10,16 +10,16 @@ body {
 .left {
     width: 50%;
     height: 100%; /* Set the height to 100% */
-    border-style: solid;
-    border-width: 1px;
+    /* border-style: solid; */
+    /* border-width: 1px; */
     background-color: grey;
-    overflow: hidden; /* Ensure the image doesn't overflow */
+    overflow: hidden;
 }
 
 .right {
     width: 50%;
     padding: 10px;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
 }
 
 img {
