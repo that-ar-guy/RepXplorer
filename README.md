@@ -1,4 +1,4 @@
-# RepXplorer - Bicep Curl Tracking Web App
+# RepXplorer - Reps Tracking Web App
 
 ## Description
 
